@@ -109,12 +109,12 @@ public class CategoriesController
     @PutMapping("{categoryId}")
     // add annotation to ensure that only an ADMIN can call this function
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void updateCategory(@PathVariable int id, @RequestBody Category category)
+    public void updateCategory(@PathVariable int categoryId, @RequestBody Category category)
     {
         // update the category by id
         try
         {
-            categoryDao.update(id, category);
+            categoryDao.update(categoryId, category);
         }
         catch (Exception ex)
         {
@@ -127,16 +127,16 @@ public class CategoriesController
     @DeleteMapping("{categoryId}")
     // add annotation to ensure that only an ADMIN can call this function
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void deleteCategory(@PathVariable int id)
+    public void deleteCategory(@PathVariable int categoryId)
     {
         // delete the category by id
         try
         {
-            var product = categoryDao.getById(id);
+            var product = categoryDao.getById(categoryId);
             if(product== null){
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND);
             }
-            categoryDao.delete(id);
+            categoryDao.delete(categoryId);
         }
         catch (Exception ex)
         {
